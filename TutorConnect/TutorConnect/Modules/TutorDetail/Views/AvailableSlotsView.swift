@@ -2,7 +2,7 @@
 //  AvailableSlotsView.swift
 //  TutorConnect
 //
-//  Created by Artyom Tabachenko on 14.06.2025.
+//  Created by Дмитрий Леонтьев on 14.06.2025.
 //
 
 import Foundation
