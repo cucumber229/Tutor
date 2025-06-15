@@ -2,7 +2,7 @@
 //  MyBookingsCoordinator.swift
 //  TutorConnect
 //
-//  Created by Artyom Tabachenko on 15.06.2025.
+//  Created by Дмитрий Леонтьев on 15.06.2025.
 //
 
 import Foundation

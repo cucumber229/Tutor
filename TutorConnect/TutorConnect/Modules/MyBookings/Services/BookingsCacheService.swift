@@ -2,7 +2,7 @@
 //  BookingsCacheService.swift
 //  TutorConnect
 //
-//  Created by Artyom Tabachenko on 15.06.2025.
+//  Created by Артур Мавликаев on 15.06.2025.
 //
 
 import Foundation
