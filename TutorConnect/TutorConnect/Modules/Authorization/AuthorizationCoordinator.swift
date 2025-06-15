@@ -2,7 +2,7 @@
 //  AuthorizationCoordinator.swift
 //  TutorConnect
 //
-//  Created by Дмитрий Леонтьев on 13.06.2025.
+//  Created by Артур Мавликаев on 13.06.2025.
 //
 
 import UIKit
