@@ -2,7 +2,7 @@
 //  FirebaseProfileService.swift
 //  TutorConnect
 //
-//  Created by Артур Мавликаев on 13.06.2025.
+//  Created by Дмитрий Леонтьев on 13.06.2025.
 //
 
 import Foundation

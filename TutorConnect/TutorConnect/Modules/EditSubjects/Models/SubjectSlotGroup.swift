@@ -2,7 +2,7 @@
 //  SubjectSlotGroup.swift
 //  TutorConnect
 //
-//  Created by Артур Мавликаев on 15.06.2025.
+//  Created by Дмитрий Леонтьев on 15.06.2025.
 //
 
 import Foundation
