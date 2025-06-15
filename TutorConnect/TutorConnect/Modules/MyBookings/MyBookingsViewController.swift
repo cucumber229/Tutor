@@ -12,6 +12,7 @@ protocol MyBookingsViewControllerProtocol: AnyObject {
     func showLoading()
     func hideLoading()
     func showBookings()
+    func showError(message: String)
 }
 
 final class MyBookingsViewController: UIViewController {
@@ -127,6 +128,12 @@ extension MyBookingsViewController: MyBookingsViewControllerProtocol {
         }
 
         tableView.reloadData()
+    }
+
+    func showError(message: String) {
+        let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ок", style: .default))
+        present(alert, animated: true)
     }
 }
 

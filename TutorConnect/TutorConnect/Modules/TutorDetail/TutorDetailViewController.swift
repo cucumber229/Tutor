@@ -14,6 +14,7 @@ protocol TutorDetailViewControllerProtocol: AnyObject {
     func showLoading()
     func hideLoading()
     func showAlert(withTitle title: String)
+    func showError(message: String)
 }
 
 final class TutorDetailViewController: UIViewController {
@@ -125,6 +126,12 @@ extension TutorDetailViewController: TutorDetailViewControllerProtocol {
     func showAlert(withTitle title: String) {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+
+    func showError(message: String) {
+        let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ок", style: .default))
         present(alert, animated: true)
     }
 }

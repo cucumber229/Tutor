@@ -48,8 +48,7 @@ extension TutorDetailPresenter: TutorDetailPresenterProtocol {
                     self.tutor = updatedTutor
                     self.view?.configureView(with: updatedTutor)
                 case .failure(let error):
-                    print("Ошибка загрузки преподавателя: \(error.localizedDescription)")
-                    // TODO: можно показать alert или errorView
+                    self.view?.showError(message: error.localizedDescription)
                 }
             }
         }
@@ -69,7 +68,7 @@ extension TutorDetailPresenter: TutorDetailPresenterProtocol {
                 }
 
             case .failure(let error):
-                print("Ошибка при бронировании: \(error.localizedDescription)")
+                self?.view?.showError(message: error.localizedDescription)
             }
         }
     }

@@ -51,7 +51,6 @@ final class FirebaseAuthService: FirebaseAuthServiceProtocol {
     func signIn(email: String, password: String, completion: @escaping (AuthResult) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
-                print(error.localizedDescription)
                 completion(.failure(error))
                 return
             }
@@ -74,7 +73,7 @@ final class FirebaseAuthService: FirebaseAuthServiceProtocol {
             try Auth.auth().signOut()
             UserDefaults.standard.removeObject(forKey: "uid")
         } catch {
-            print(error.localizedDescription)
+            // Handle sign out error if needed
         }
     }
 }

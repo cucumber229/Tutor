@@ -13,6 +13,7 @@ protocol TutorListViewControllerProtocol: AnyObject {
     func showLoading()
     func hideLoading()
     func showTutors()
+    func showError(message: String)
 }
 
 final class TutorListViewController: UIViewController {
@@ -60,6 +61,12 @@ extension TutorListViewController: TutorListViewControllerProtocol {
 
     func showTutors() {
         tableView.reloadData()
+    }
+
+    func showError(message: String) {
+        let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ок", style: .default))
+        present(alert, animated: true)
     }
 }
 // MARK: - Private Methods

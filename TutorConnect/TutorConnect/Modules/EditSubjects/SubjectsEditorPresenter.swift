@@ -43,7 +43,7 @@ extension SubjectsEditorPresenter: SubjectsEditorPresenterProtocol {
                     self?.view?.showSubjects()
                     print(fetchedSlots)
                 case .failure(let error):
-                    print("Ошибка получения слотов: \(error.localizedDescription)")
+                    self?.view?.showError(message: error.localizedDescription)
                 }
             }
         }
@@ -59,7 +59,7 @@ extension SubjectsEditorPresenter: SubjectsEditorPresenterProtocol {
                 self.view?.showSubjects()
                 print("Предмет добавлен в Firebase: \(name)")
             case .failure(let error):
-                print("Ошибка при добавлении: \(error.localizedDescription)")
+                self.view?.showError(message: error.localizedDescription)
             }
         }
     }
@@ -74,7 +74,7 @@ extension SubjectsEditorPresenter: SubjectsEditorPresenterProtocol {
             case .success:
                 print("Удалено: \(name)")
             case .failure(let error):
-                print("Ошибка при удалении: \(error.localizedDescription)")
+                self.view?.showError(message: error.localizedDescription)
             }
         }
     }

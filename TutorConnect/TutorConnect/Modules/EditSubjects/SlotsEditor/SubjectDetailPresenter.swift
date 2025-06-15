@@ -38,13 +38,13 @@ extension SubjectDetailPresenter: SubjectDetailPresenterProtocol {
                 switch result {
                 case .success(let groups):
                     guard let group = groups.first(where: { $0.name == self?.subject.name }) else {
-                        print("Предмет не найден")
+                        self?.view?.showError(message: "Предмет не найден")
                         return
                     }
                     self?.subject = group
                     self?.view?.showSlots()
                 case .failure(let error):
-                    print("Ошибка загрузки слотов: \(error.localizedDescription)")
+                    self?.view?.showError(message: error.localizedDescription)
                 }
             }
         }
@@ -61,7 +61,7 @@ extension SubjectDetailPresenter: SubjectDetailPresenterProtocol {
                     self?.view?.showSlots()
                 }
             case .failure(let error):
-                print("Ошибка добавления слота: \(error.localizedDescription)")
+                self?.view?.showError(message: error.localizedDescription)
             }
         }
     }
@@ -78,7 +78,7 @@ extension SubjectDetailPresenter: SubjectDetailPresenterProtocol {
                     self?.view?.showSlots()
                 }
             case .failure(let error):
-                print("Ошибка удаления слота: \(error.localizedDescription)")
+                self?.view?.showError(message: error.localizedDescription)
             }
         }
     }
