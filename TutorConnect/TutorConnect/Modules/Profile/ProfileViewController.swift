@@ -130,6 +130,10 @@ final class ProfileViewController: UIViewController {
         stackView.alignment = .fill
         return stackView
     }()
+
+    private lazy var logoutButton: UIBarButtonItem = {
+        UIBarButtonItem(title: "Выход", style: .plain, target: self, action: #selector(logoutTapped))
+    }()
     
     // MARK: MVP Properties
     
@@ -143,6 +147,7 @@ final class ProfileViewController: UIViewController {
         setupUI()
         setupDismissKeyboardGesture()
         updateVisibilityForRole()
+        navigationItem.rightBarButtonItem = logoutButton
     }
 }
 
@@ -273,6 +278,10 @@ private extension ProfileViewController {
     @objc private func authModeChanged(_ sender: UISegmentedControl) {
         updateVisibilityForRole()
         validateInputs()
+    }
+
+    @objc private func logoutTapped() {
+        presenter.signOut()
     }
 }
 

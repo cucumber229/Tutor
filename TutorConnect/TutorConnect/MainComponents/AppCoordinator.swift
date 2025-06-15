@@ -36,6 +36,10 @@ extension AppCoordinator {
     func start() {
         setRootViewController(authorizationCoordinator.start())
     }
+
+    func goToAuthorization() {
+        setRootViewController(authorizationCoordinator.start())
+    }
     
     func goToProfile() {
         setRootViewController(tabBarCoordinator.start())
