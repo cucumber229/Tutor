@@ -74,6 +74,9 @@ extension ProfilePresenter: ProfilePresenterProtocol {
                     if let bundleID = Bundle.main.bundleIdentifier {
                         UserDefaults.standard.removePersistentDomain(forName: bundleID)
                     }
+
+                    self?.moduleOutput.didLogOut()
+
                 case .failure(let error):
                     self?.view?.showAlert(with: "Ошибка", with: "\(error.localizedDescription)")
                 }

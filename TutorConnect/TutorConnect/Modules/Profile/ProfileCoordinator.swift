@@ -8,7 +8,8 @@
 import UIKit
 
 protocol ProfileCoordinatorProtocol: Coordinator {
-    func goToSubjectsList() 
+    func goToSubjectsList()
+    func didLogOut()
 }
 
 final class ProfileCoordinator {
@@ -34,9 +35,13 @@ extension ProfileCoordinator: ProfileCoordinatorProtocol {
     func start() -> UIViewController {
         return navigationController
     }
-    
+
     func goToSubjectsList() {
         let coordinator = SubjectsEditorCoordinator(navigationController: navigationController)
         coordinator.start()
+    }
+
+    func didLogOut() {
+        applicationCoordinator?.goToAuthorization()
     }
 }
