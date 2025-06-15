@@ -12,6 +12,7 @@ import FirebaseFirestore
 protocol FirebaseProfileServiceProtocol {
     func updateTutorProfile(name: String, price: Int, about: String, isTutor: Bool, completion: @escaping (Result<Void, Error>) -> Void)
     func fetchTutor(by uid: String, completion: @escaping (Result<TutorModel, Error>) -> Void)
+    func signOut(completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 final class FirebaseProfileService: FirebaseProfileServiceProtocol {
@@ -35,6 +36,15 @@ final class FirebaseProfileService: FirebaseProfileServiceProtocol {
             } else {
                 completion(.success(()))
             }
+        }
+    }
+
+    func signOut(completion: @escaping (Result<Void, Error>) -> Void) {
+        do {
+            try Auth.auth().signOut()
+            completion(.success(()))
+        } catch {
+            completion(.failure(error))
         }
     }
     

@@ -12,6 +12,7 @@ protocol ProfilePresenterProtocol: AnyObject {
     func fetchFullTutorProfile()
     func updateTutorProfile(name: String, price: Int, about: String, isTutor: Bool)
     func showSubjects()
+    func signOut()
 }
 
 final class ProfilePresenter {
@@ -63,5 +64,20 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     
     func showSubjects() {
         moduleOutput.goToSubjectsList()
+    }
+
+    func signOut() {
+        profileService.signOut { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    if let bundleID = Bundle.main.bundleIdentifier {
+                        UserDefaults.standard.removePersistentDomain(forName: bundleID)
+                    }
+                case .failure(let error):
+                    self?.view?.showAlert(with: "Ошибка", with: "\(error.localizedDescription)")
+                }
+            }
+        }
     }
 }
