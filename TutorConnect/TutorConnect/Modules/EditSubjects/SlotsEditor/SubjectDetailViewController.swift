@@ -12,6 +12,7 @@ protocol SubjectDetailViewControllerProtocol: AnyObject {
     func showLoading()
     func hideLoading()
     func showSlots()
+    func showError(message: String)
 }
 
 final class SubjectDetailViewController: UIViewController {
@@ -91,6 +92,12 @@ extension SubjectDetailViewController: SubjectDetailViewControllerProtocol {
 
     func hideLoading() {
         activityIndicator.stopAnimating()
+    }
+
+    func showError(message: String) {
+        let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ок", style: .default))
+        present(alert, animated: true)
     }
 }
 

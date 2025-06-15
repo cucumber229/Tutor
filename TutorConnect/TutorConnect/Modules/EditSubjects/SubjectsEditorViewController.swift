@@ -13,6 +13,7 @@ protocol SubjectsEditorViewControllerProtocol: AnyObject {
     func showLoading()
     func hideLoading()
     func showSubjects()
+    func showError(message: String)
 }
 
 final class SubjectsEditorViewController: UIViewController {
@@ -112,6 +113,12 @@ extension SubjectsEditorViewController: SubjectsEditorViewControllerProtocol {
 
     func hideLoading() {
         activityIndicator.stopAnimating()
+    }
+
+    func showError(message: String) {
+        let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ок", style: .default))
+        present(alert, animated: true)
     }
 }
 

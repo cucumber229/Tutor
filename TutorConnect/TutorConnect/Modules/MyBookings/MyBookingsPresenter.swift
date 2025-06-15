@@ -61,7 +61,7 @@ extension MyBookingsPresenter: MyBookingsPresenterProtocol {
                     self.view?.hideLoading()
                     self.view?.showBookings()
                 case .failure(let error):
-                    print("Ошибка загрузки с Firebase: \(error.localizedDescription)")
+                    self.view?.showError(message: error.localizedDescription)
                     if let cached = self.cacheService.load() {
                         self.isTutor = cached.isTutor
                         self.tutorBookings = cached.tutorBookings

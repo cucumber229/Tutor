@@ -48,7 +48,7 @@ extension TutorListPresenter: TutorListPresenterProtocol {
                     self?.view?.showTutors()
                     
                 case .failure(let error):
-                    print("Ошибка загрузки репетиторов: \(error.localizedDescription)")
+                    self?.view?.showError(message: error.localizedDescription)
                 }
             }
         }
