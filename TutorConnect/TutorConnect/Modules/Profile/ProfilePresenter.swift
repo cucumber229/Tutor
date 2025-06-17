@@ -42,8 +42,9 @@ extension ProfilePresenter: ProfilePresenterProtocol {
                 switch result {
                 case .success(let tutor):
                     self?.view?.setUserProfile(tutor)
-                case .failure(let error):
-                    self?.view?.showAlert(with: "Ошибка", with: "\(error)")
+                case .failure(_):
+                    print("Error")
+//                    self?.view?.showAlert(with: "Ошибка", with: "\(error)")
                 }
             }
         }

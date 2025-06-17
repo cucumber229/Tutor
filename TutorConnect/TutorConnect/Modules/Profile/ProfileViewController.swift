@@ -5,6 +5,9 @@
 //  Created by Дмитрий Леонтьев on 13.06.2025.
 //
 
+
+
+
 import Foundation
 import UIKit
 import SnapKit
@@ -16,13 +19,12 @@ protocol ProfileViewControllerProtocol: AnyObject {
 
 final class ProfileViewController: UIViewController {
     
-    // Properties
+    // MARK: - Properties
     private var isTutor: Bool {
-        return modeSwitcher.selectedSegmentIndex == 1
+        modeSwitcher.selectedSegmentIndex == 1
     }
     
-    //MARK: UI
-    
+    // MARK: - UI Elements
     private lazy var greetingLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.greetingLabel
@@ -33,32 +35,70 @@ final class ProfileViewController: UIViewController {
         return label
     }()
     
+    private lazy var modeSwitcher: UISegmentedControl = {
+        let control = UISegmentedControl(items: ["Ученик", "Репетитор"])
+        control.selectedSegmentIndex = 1
+        control.addTarget(self, action: #selector(authModeChanged(_:)), for: .valueChanged)
+        control.backgroundColor = .clear
+        control.selectedSegmentTintColor = .systemBlue
+        control.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+        control.setTitleTextAttributes([.foregroundColor: UIColor.systemBlue], for: .normal)
+        // Фиксируем высоту переключателя режимов
+        control.snp.makeConstraints { $0.height.equalTo(40) }
+        return control
+    }()
+
+    private lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Имя"
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .darkGray
+        return label
+    }()
+    
     private lazy var nameTextField: UITextField = {
         let textField = UITextField()
+        textField.placeholder = Constants.namePlaceholder
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 22
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
         textField.leftViewMode = .always
-        textField.clipsToBounds = false
         textField.layer.shadowOpacity = 0.1
-        textField.layer.shadowOffset = CGSize(width: 0, height: 0)
+        textField.layer.shadowOffset = .zero
         textField.snp.makeConstraints { $0.height.equalTo(Constants.textFieldHeight) }
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return textField
     }()
     
+    private lazy var priceLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Цена за час"
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .darkGray
+        return label
+    }()
+    
     private lazy var priceTextField: UITextField = {
         let textField = UITextField()
+        textField.placeholder = Constants.pricePlaceholder
+        textField.keyboardType = .numberPad
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 22
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
         textField.leftViewMode = .always
-        textField.clipsToBounds = false
         textField.layer.shadowOpacity = 0.1
-        textField.layer.shadowOffset = CGSize(width: 0, height: 0)
+        textField.layer.shadowOffset = .zero
         textField.snp.makeConstraints { $0.height.equalTo(Constants.textFieldHeight) }
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return textField
+    }()
+    
+    private lazy var aboutLabel: UILabel = {
+        let label = UILabel()
+        label.text = "О себе"
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .darkGray
+        return label
     }()
     
     private lazy var aboutTextView: UITextView = {
@@ -66,53 +106,25 @@ final class ProfileViewController: UIViewController {
         textView.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         textView.textColor = .black
         textView.backgroundColor = .white
-
         textView.isScrollEnabled = true
         textView.alwaysBounceVertical = true
-
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        textView.textContainer.lineBreakMode = .byWordWrapping
-        textView.textContainer.lineFragmentPadding = 0
-
         textView.layer.cornerRadius = 10
-        textView.layer.masksToBounds = false
         textView.layer.borderWidth = 0.5
         textView.layer.borderColor = UIColor.gray.withAlphaComponent(0.3).cgColor
         textView.layer.shadowColor = UIColor.black.cgColor
         textView.layer.shadowOpacity = 0.1
         textView.layer.shadowRadius = 4
         textView.layer.shadowOffset = .zero
-
         textView.snp.makeConstraints { $0.height.equalTo(180) }
         return textView
-    }()
-    
-    private lazy var modeSwitcher: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["Ученик", "Репетитор"])
-        control.selectedSegmentIndex = 1
-        control.addTarget(self, action: #selector(authModeChanged(_:)), for: .valueChanged)
-        control.backgroundColor = .clear
-        control.selectedSegmentTintColor = UIColor.systemBlue
-        control.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-        control.setTitleTextAttributes([.foregroundColor: UIColor.systemBlue], for: .normal)
-        return control
-    }()
-    
-    private lazy var updateButton: UIButton = {
-        let button = UIButton()
-        button.setTitle(Constants.continueTitleButton, for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 22
-        button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-        return button
     }()
     
     private lazy var addLessonsButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Добавить занятия", for: .normal)
-        button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemGreen
         button.layer.cornerRadius = 22
         button.addTarget(self, action: #selector(addLessonsTapped), for: .touchUpInside)
@@ -120,27 +132,34 @@ final class ProfileViewController: UIViewController {
         return button
     }()
     
-    private lazy var scrollView = UIScrollView()
-    
-    private lazy var contentStack: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 20
-        stackView.distribution = .fill
-        stackView.alignment = .fill
-        return stackView
+    private lazy var updateButton: UIButton = {
+        let button = UIButton()
+        button.setTitle(Constants.continueTitleButton, for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 22
+        button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        return button
     }()
-
+    
+    private lazy var scrollView = UIScrollView()
+    private lazy var contentStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 12
+        stack.alignment = .fill
+        stack.distribution = .fill
+        return stack
+    }()
+    
     private lazy var logoutButton: UIBarButtonItem = {
         UIBarButtonItem(title: "Выход", style: .plain, target: self, action: #selector(logoutTapped))
     }()
     
-    // MARK: MVP Properties
-    
+    // MARK: - Presenter
     var presenter: ProfilePresenterProtocol!
     
-    // MARK: Lifecycle
-    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.fetchFullTutorProfile()
@@ -151,59 +170,41 @@ final class ProfileViewController: UIViewController {
     }
 }
 
-// MARK: - Public methods
-
+// MARK: - ProfileViewControllerProtocol
 extension ProfileViewController: ProfileViewControllerProtocol {
     func setUserProfile(_ tutor: TutorModel) {
         nameTextField.text = tutor.name
         priceTextField.text = "\(tutor.pricePerHour)"
         aboutTextView.text = tutor.about ?? ""
         validateInputs()
-        
     }
     
     func showAlert(with title: String, with message: String) {
-        let alert = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "Ок", style: .default))
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(.init(title: "Ок", style: .default))
         present(alert, animated: true)
     }
 }
 
-
-// MARK: - Private methods
-
+// MARK: - Private setup & validation
 private extension ProfileViewController {
     func setupUI() {
         view.backgroundColor = .white
-        addSubviews()
-        setupConstraints()
-    }
-    
-    func addSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentStack)
-        contentStack.addArrangedSubview(modeSwitcher)
-        contentStack.addArrangedSubview(greetingLabel)
-        contentStack.addArrangedSubview(nameTextField)
-        contentStack.addArrangedSubview(priceTextField)
-        contentStack.addArrangedSubview(aboutTextView)
-        contentStack.addArrangedSubview(addLessonsButton)
-
-        view.addSubview(updateButton)
-    }
-    
-    func setupConstraints() {
-        scrollView.snp.makeConstraints { $0.edges.equalTo(view.safeAreaLayoutGuide) }
-
-        contentStack.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(20)
-            $0.width.equalToSuperview().inset(20)
+        
+        // Настраиваем отступы контента
+        contentStack.snp.makeConstraints { make in
+            make.top.left.right.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
-                
+        scrollView.snp.makeConstraints { $0.edges.equalTo(view.safeAreaLayoutGuide) }
+        scrollView.snp.makeConstraints { $0.edges.equalTo(view.safeAreaLayoutGuide) }
+        [modeSwitcher, greetingLabel,
+         nameLabel, nameTextField,
+         priceLabel, priceTextField,
+         aboutLabel, aboutTextView,
+         addLessonsButton].forEach { contentStack.addArrangedSubview($0) }
+        view.addSubview(updateButton)
         updateButton.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(Constants.buttonHorizontalInset)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
@@ -212,89 +213,62 @@ private extension ProfileViewController {
     }
     
     func setupDismissKeyboardGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tapGesture.cancelsTouchesInView = false
-        view.addGestureRecognizer(tapGesture)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
     
     func validateInputs() {
         let nameValid = !(nameTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty ?? true)
         let aboutValid = !aboutTextView.text.trimmingCharacters(in: .whitespaces).isEmpty
-
-        var isFormValid = nameValid && aboutValid
-
+        var formReady = nameValid && aboutValid
         if isTutor {
-            let priceValid = Int(priceTextField.text ?? "") != nil
-            isFormValid = isFormValid && priceValid
+            let priceValid = (Int(priceTextField.text ?? "") ?? 0) > 0
+            formReady = formReady && priceValid
         }
-
-        updateButton.isEnabled = isFormValid
-        updateButton.alpha = isFormValid ? 1.0 : 0.5
+        updateButton.isEnabled = formReady
+        updateButton.alpha = formReady ? 1 : 0.5
     }
     
     func updateVisibilityForRole() {
+        priceLabel.isHidden = !isTutor
         priceTextField.isHidden = !isTutor
         addLessonsButton.isHidden = !isTutor
     }
 }
 
-
-// MARK: - objc methods
-
+// MARK: - Actions
 private extension ProfileViewController {
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
-    @objc private func saveButtonTapped() {
-        let nameToSave = nameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let aboutToSave = aboutTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
-
-        guard !nameToSave.isEmpty, !aboutToSave.isEmpty else { return }
-
-        var priceToSave = 0
+    @objc func dismissKeyboard() { view.endEditing(true) }
+    @objc func saveButtonTapped() {
+        let name = nameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let about = aboutTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !name.isEmpty, !about.isEmpty else { return }
+        var price = 0
         if isTutor {
-            guard let raw = priceTextField.text,
-                  let parsed = Int(raw), parsed > 0 else { return }
-            priceToSave = parsed
+            guard let val = Int(priceTextField.text ?? ""), val > 0 else { return }
+            price = val
         }
-
-        presenter.updateTutorProfile(
-            name: nameToSave,
-            price: priceToSave,
-            about: aboutToSave,
-            isTutor: isTutor
-        )
+        presenter.updateTutorProfile(name: name, price: price, about: about, isTutor: isTutor)
     }
-    
-    @objc private func textFieldDidChange() {
-        validateInputs()
-    }
-    
-    @objc private func addLessonsTapped() {
-        presenter.showSubjects()
-    }
-    
-    @objc private func authModeChanged(_ sender: UISegmentedControl) {
+    @objc func textFieldDidChange() { validateInputs() }
+    @objc func addLessonsTapped() { presenter.showSubjects() }
+    @objc func authModeChanged(_ sender: UISegmentedControl) {
         updateVisibilityForRole()
         validateInputs()
     }
-
-    @objc private func logoutTapped() {
-        presenter.signOut()
-    }
+    @objc func logoutTapped() { presenter.signOut() }
 }
 
 // MARK: - Constants
-
 private extension ProfileViewController {
     enum Constants {
         static let textFieldHeight: CGFloat = 48
         static let buttonHeight: CGFloat = 50
         static let buttonHorizontalInset: CGFloat = 20
-        
-        static let defaultPlaceholder: String = "*Пожалуйста, представьтесь*"
-        static let continueTitleButton: String = "Обновить"
-        static let greetingLabel: String = "Здравствуйте!"
+        static let namePlaceholder = "Введите ваше имя"
+        static let pricePlaceholder = "Например: 500"
+        static let continueTitleButton = "Обновить"
+        static let greetingLabel = "Здравствуйте!"
     }
 }

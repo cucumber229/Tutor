@@ -41,9 +41,9 @@ private extension TabBarCooridnator {
         let coordinator = TutorListCoordinator(tabBarcoordinator: self)
         let controller = coordinator.start()
         controller.tabBarItem = .init(
-            title: "Профиль",
-            image: .init(systemName: "house"),
-            selectedImage: .init(systemName: "house.fill")
+            title: "Преподаватели",
+            image: .init(systemName: "person.circle"),
+            selectedImage: .init(systemName: "person.circle.fill")
         )
         return controller
     }
@@ -52,10 +52,11 @@ private extension TabBarCooridnator {
         let coordinator = ProfileCoordinator(applicationCoordinator: applicationCoordinator)
         let controller = coordinator.start()
         controller.tabBarItem = .init(
-            title: "Преподаватели",
-            image: .init(systemName: "person.circle"),
-            selectedImage: .init(systemName: "person.circle.fill")
+            title: "Профиль",
+            image: .init(systemName: "house"),
+            selectedImage: .init(systemName: "house.fill")
         )
+    
         return controller
     }
     
