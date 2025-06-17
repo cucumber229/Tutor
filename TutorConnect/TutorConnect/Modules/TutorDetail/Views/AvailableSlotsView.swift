@@ -11,7 +11,6 @@ import FirebaseFirestore
 
 final class AvailableSlotsView: UIView {
     
-    // Properties
     private(set) var selectedSlot: Date?
     private(set) var selectedSubject: String?
     private var selectedSlotView: SlotSelectionView?
@@ -61,7 +60,6 @@ extension AvailableSlotsView {
             slotSelectionView.configureSlots(from: formattedDates.map { $0.date })
 
             slotSelectionView.onSlotSelected = { [weak self, weak slotSelectionView] slotText, button in
-                // Находим Date по тексту
                 guard let self = self,
                       let selected = formattedDates.first(where: { $0.title == slotText })?.date
                 else { return }
@@ -84,7 +82,6 @@ extension AvailableSlotsView {
             prev.layer.borderColor = UIColor.clear.cgColor
         }
 
-        // Повторный тап = снять выбор
         if selectedButton == button {
             selectedButton = nil
             selectedSlotView = nil

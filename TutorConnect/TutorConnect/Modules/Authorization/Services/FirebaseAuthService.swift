@@ -73,7 +73,6 @@ final class FirebaseAuthService: FirebaseAuthServiceProtocol {
             try Auth.auth().signOut()
             UserDefaults.standard.removeObject(forKey: "uid")
         } catch {
-            // Handle sign out error if needed
         }
     }
 }

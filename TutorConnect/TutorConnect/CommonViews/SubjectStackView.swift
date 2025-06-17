@@ -11,8 +11,7 @@ import Foundation
 
 final class SubjectStackView: UIStackView {
     
-    // Properties
-    private let maxRowWidth: CGFloat = UIScreen.main.bounds.width - 30 // отступы
+    private let maxRowWidth: CGFloat = UIScreen.main.bounds.width - 30 
     private let labelFont = UIFont(name: Fonts.ubuntuRegular, size: 12)!
     
     // MARK: Initialization

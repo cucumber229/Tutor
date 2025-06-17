@@ -13,7 +13,6 @@ protocol SubjectsEditorCoordinatorProtocol: Coordinator {
 }
 
 final class SubjectsEditorCoordinator: SubjectsEditorCoordinatorProtocol {
-    // Properties
     private var navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {

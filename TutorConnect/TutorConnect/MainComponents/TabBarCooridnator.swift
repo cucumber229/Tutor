@@ -13,7 +13,6 @@ protocol TabBarCoordinatorProtocol: Coordinator {
 
 final class TabBarCooridnator: TabBarCoordinatorProtocol {
     
-    // Properties
     weak var tabBarController: UITabBarController?
     private lazy var navigationCoordinator = UINavigationController()
     private var applicationCoordinator: AppCoordinator

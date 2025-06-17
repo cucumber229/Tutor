@@ -37,7 +37,6 @@ final class FirebaseTutorService: FirebaseTutorServiceProtocol {
                         return nil
                     }
 
-                    // Парсинг availableSlots: [String: [Any]] -> [String: [String]]
                     var parsedSlots: [String: [Timestamp]]? = nil
                     if let rawSlots = data["availableSlots"] as? [String: [Any]] {
                         parsedSlots = rawSlots.mapValues { array in

@@ -9,7 +9,6 @@ import UIKit
 
 final class AppCoordinator {
     
-    // Properties
     private var window: UIWindow
     
     // MARK: - Initialization
@@ -18,7 +17,6 @@ final class AppCoordinator {
         self.window = window
     }
     
-    // Dependencies
     private lazy var authorizationCoordinator: AuthorizationCoordinatorProtocol = {
         let coordinator = AuthorizationCoordinator(applicationCoordinator: self)
         return coordinator

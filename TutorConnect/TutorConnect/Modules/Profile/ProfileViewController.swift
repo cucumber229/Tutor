@@ -43,7 +43,6 @@ final class ProfileViewController: UIViewController {
         control.selectedSegmentTintColor = .systemBlue
         control.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
         control.setTitleTextAttributes([.foregroundColor: UIColor.systemBlue], for: .normal)
-        // Фиксируем высоту переключателя режимов
         control.snp.makeConstraints { $0.height.equalTo(40) }
         return control
     }()
@@ -193,7 +192,6 @@ private extension ProfileViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(contentStack)
         
-        // Настраиваем отступы контента
         contentStack.snp.makeConstraints { make in
             make.top.left.right.equalTo(view.safeAreaLayoutGuide).inset(20)
         }

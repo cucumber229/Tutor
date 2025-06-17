@@ -13,7 +13,6 @@ protocol TutorListCoordinatorProtocol: Coordinator {
 
 final class TutorListCoordinator {
     
-    // Properties
     private var navigationController = UINavigationController()
     private var tabBarcoordinator: TabBarCoordinatorProtocol?
     
