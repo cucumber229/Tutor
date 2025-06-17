@@ -10,7 +10,6 @@ import UIKit
 
 final class SlotSelectionView: UIStackView {
     
-    // Properties
     var onSlotSelected: ((String, UIButton) -> Void)?
     private let maxRowWidth: CGFloat = UIScreen.main.bounds.width - 30
     private let buttonFont = UIFont(name: Fonts.ubuntuRegular, size: 12)!
@@ -76,18 +75,15 @@ private extension SlotSelectionView {
         button.setTitle(title, for: .normal)
         button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 12)
         
-        // Нормальное состояние
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .systemGray6.withAlphaComponent(0.7)
         
-        // Общий стиль
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.clear.cgColor
         button.clipsToBounds = true
         button.contentEdgeInsets = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
         
-        // Выбранное состояние (будет вручную управляться из AvailableSlotsView)
         button.setTitleColor(.white, for: .selected)
 
         button.addAction(UIAction { [weak self] _ in

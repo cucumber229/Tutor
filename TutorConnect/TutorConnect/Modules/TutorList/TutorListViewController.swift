@@ -17,7 +17,6 @@ protocol TutorListViewControllerProtocol: AnyObject {
 }
 
 final class TutorListViewController: UIViewController {
-    // Dependencies
     
     // MARK: UI
     private lazy var tableView: UITableView = {

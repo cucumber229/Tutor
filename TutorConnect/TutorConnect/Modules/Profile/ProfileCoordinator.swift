@@ -14,7 +14,6 @@ protocol ProfileCoordinatorProtocol: Coordinator {
 
 final class ProfileCoordinator {
     
-    // Properties
     private var navigationController = UINavigationController()
     private var applicationCoordinator: AppCoordinator?
     

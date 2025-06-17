@@ -120,7 +120,6 @@ final class FirebaseSlotsService: FirebaseSlotsServiceProtocol {
                 return nil
             }
 
-            // Существующие предметы
             var currentSubjects = snapshot.data()?["subjects"] as? [String] ?? []
 
             if !currentSubjects.contains(name) {
@@ -128,7 +127,6 @@ final class FirebaseSlotsService: FirebaseSlotsServiceProtocol {
                 transaction.updateData(["subjects": currentSubjects], forDocument: docRef)
             }
 
-            // Существующие слоты
             var currentSlots = snapshot.data()?["availableSlots"] as? [String: [Timestamp]] ?? [:]
 
             if currentSlots[name] == nil {

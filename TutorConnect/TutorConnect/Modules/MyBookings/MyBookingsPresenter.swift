@@ -20,13 +20,11 @@ protocol MyBookingsPresenterProtocol: AnyObject {
 }
 
 final class MyBookingsPresenter {
-    // Dependencies
     private weak var view: MyBookingsViewControllerProtocol?
     private let moduleOutput: MyBookingsCoordinatorProtocol
     private let bookingService: FirebaseBookingServiceProtocol = FirebaseBookingService()
     private let cacheService = BookingsCacheService()
     
-    // Properties
     private(set) var isTutor: Bool = false
     private(set) var studentBookings: [BookingInfo] = []
     private(set) var tutorBookings: [BookingInfo] = []

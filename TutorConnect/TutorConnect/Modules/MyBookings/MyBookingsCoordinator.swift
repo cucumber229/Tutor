@@ -14,7 +14,6 @@ protocol MyBookingsCoordinatorProtocol: Coordinator {
 
 final class MyBookingsCoordinator {
     
-    // Properties
     private var navigationController = UINavigationController()
     private var applicationCoordinator: AppCoordinator?
     

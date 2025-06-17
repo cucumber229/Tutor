@@ -68,13 +68,11 @@ final class FirebaseProfileService: FirebaseProfileServiceProtocol {
                 return
             }
 
-            // Обрабатываем availableSlots
             var availableSlots: [String: [Timestamp]]? = nil
             if let raw = data["availableSlots"] as? [String: [Any]] {
                 availableSlots = raw.mapValues { $0.compactMap { $0 as? Timestamp } }
             }
 
-            // Обрабатываем selectedSlots
             var selectedSlots: [SelectedSlot]? = nil
             if let rawSelected = data["selectedSlots"] as? [[String: Any]] {
                 selectedSlots = rawSelected.compactMap { dict in

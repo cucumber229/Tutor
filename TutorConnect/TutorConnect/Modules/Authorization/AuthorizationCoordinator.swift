@@ -13,7 +13,6 @@ protocol AuthorizationCoordinatorProtocol: Coordinator {
 
 final class AuthorizationCoordinator: AuthorizationCoordinatorProtocol {
     
-    // Properties
     private var navigationController = UINavigationController()
     private var applicationCoordinator: AppCoordinator?
     

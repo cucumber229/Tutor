@@ -13,11 +13,9 @@ protocol AuthorizationPresenterProtocol: AnyObject {
 }
 
 final class AuthorizationPresenter {
-    // Properties
     private let moduleOutput: AuthorizationCoordinatorProtocol
     private weak var view: AuthorizationViewProtocol?
     
-    // Dependencies
     private let firebaseService: FirebaseAuthServiceProtocol = FirebaseAuthService()
     
     // MARK: - Initialization

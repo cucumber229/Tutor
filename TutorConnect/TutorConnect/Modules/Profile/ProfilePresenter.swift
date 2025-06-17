@@ -16,7 +16,6 @@ protocol ProfilePresenterProtocol: AnyObject {
 }
 
 final class ProfilePresenter {
-    // Properties
     private let moduleOutput: ProfileCoordinatorProtocol
     private let profileService: FirebaseProfileServiceProtocol = FirebaseProfileService()
     private weak var view: ProfileViewControllerProtocol?
@@ -44,7 +43,6 @@ extension ProfilePresenter: ProfilePresenterProtocol {
                     self?.view?.setUserProfile(tutor)
                 case .failure(_):
                     print("Error")
-//                    self?.view?.showAlert(with: "Ошибка", with: "\(error)")
                 }
             }
         }

@@ -14,12 +14,10 @@ protocol TutorDetailPresenterProtocol: AnyObject {
 }
 
 final class TutorDetailPresenter {
-    // Dependencies
     private weak var view: TutorDetailViewControllerProtocol?
     private let bookingService: FirebaseBookingServiceProtocol = FirebaseBookingService()
     private let profileService: FirebaseProfileServiceProtocol = FirebaseProfileService()
     
-    // Properties
     private var tutor: TutorModel
     
     // MARK: Initialization

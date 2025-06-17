@@ -16,11 +16,9 @@ protocol SubjectDetailPresenterProtocol: AnyObject {
 }
 
 final class SubjectDetailPresenter {
-    // Dependencies
     private weak var view: SubjectDetailViewControllerProtocol?
     private let slotsService: FirebaseSlotsServiceProtocol = FirebaseSlotsService()
     
-    // Properties
     private(set) var subject: SubjectSlotGroup
     
     init(view: SubjectDetailViewControllerProtocol, subject: SubjectSlotGroup) {

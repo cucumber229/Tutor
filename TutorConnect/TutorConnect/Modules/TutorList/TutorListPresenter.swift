@@ -14,7 +14,6 @@ protocol TutorListPresenterProtocol: AnyObject {
 }
 
 final class TutorListPresenter {
-    // Properties
     private let moduleOutput: TutorListCoordinatorProtocol
     private weak var view: TutorListViewControllerProtocol?
     private let tutorService: FirebaseTutorServiceProtocol = FirebaseTutorService()
@@ -49,7 +48,6 @@ extension TutorListPresenter: TutorListPresenterProtocol {
                     
                 case .failure(_):
                     print("Error")
-//                    self?.view?.showError(message: error.localizedDescription)
                 }
             }
         }
